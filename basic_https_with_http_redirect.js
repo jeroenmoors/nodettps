@@ -23,6 +23,9 @@ app.use(function(req,res,next) {
     if (!/https/.test(req.protocol)){
         res.redirect("https://" + req.headers.host + req.url);
     } else {
+		// If we're on https, ensure all requests will be over https
+		// http://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security
+		res.setHeader("Strict-Transport-Security", "max-age=31536000");
         return next();
     } 
 });
